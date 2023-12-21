@@ -1,0 +1,41 @@
+# Node.js
+node_modules/
+
+# macOS
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+.pnpm
+.pnpm-debug.log
+
+# dotenv environment variables file
+.env
+
+# Build output
+dist/
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+
+# MongoDB data directory
+/data/db
+
+# Yarn
+.yarn
+.yarnrc
+.yarn-integrity
+
+# npm
+npm-debug.log
+.npm
+*.bak
+*.log
