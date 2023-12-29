@@ -57,38 +57,35 @@ export const getUserByEmailAddress = async (req, res) => {
 export const getUsersWithinDistance = async (req, res) => {
   const maxDistance = req.body.maxDistance;
   const pointOfOrigin = req.body.pointOfOrigin;
-
-  if (!maxDistance) {
-    res
-      .status(400)
-      .send({ message: "Please send a maximum distance (m) in the request" });
-  }
-
-  if (!pointOfOrigin) {
-    res
-      .status(400)
-      .send({ message: "Please send a point of origin in the request" });
-  }
-
   try {
-    const users = await User.find({
-      location: {
-        $near: {
-          $geometry: {
-            type: "Point",
-            coordinates: pointOfOrigin,
-          },
-          $maxDistance: maxDistance,
-        },
-      },
-    });
-
-    if (users.length > 0) {
-      return res.status(200).send({ users });
-    } else {
-      return res
+    if (!maxDistance) {
+      res
         .status(400)
-        .send({ message: "No users found in this distance" });
+        .send({ message: "Please send a maximum distance (m) in the request" });
+    } else if (!pointOfOrigin) {
+      res
+        .status(400)
+        .send({ message: "Please send a point of origin in the request" });
+    } else {
+      const users = await User.find({
+        location: {
+          $near: {
+            $geometry: {
+              type: "Point",
+              coordinates: pointOfOrigin,
+            },
+            $maxDistance: maxDistance,
+          },
+        },
+      });
+
+      if (users.length > 0) {
+        return res.status(200).send({ users });
+      } else {
+        return res
+          .status(400)
+          .send({ message: "No users found in this distance" });
+      }
     }
   } catch (error) {
     console.log(error);
