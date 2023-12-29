@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema({
   jobsPurchased: { type: Number, required: true, default: 0 },
   freelancerRating: { type: Number, required: true, default: 0 },
   customerRating: { type: Number, required: true, default: 0 },
+  location: { type: [Number], required: true },
 });
+
+userSchema.index({ location: "2dsphere" });
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.JWT_PRIVATE_KEY, {
@@ -31,6 +34,7 @@ const validate = (data) => {
     lastName: Joi.string().required().label("lastName"),
     emailAddress: Joi.string().email().required().label("emailAddress"),
     password: JoiPasswordComplexity().required().label("password"),
+    location: Joi.required(),
   });
   return schema.validate(data);
 };
