@@ -13,7 +13,8 @@ User: {
     timesHired: Integer,
     freelanceRating: float (0.0 - 5.0),
     jobsPurchased: Integer,
-    customerRating: Integer 
+    customerRating: float,
+    location: Coordinates?? - City / town
 }
 ```
 ## Service
@@ -34,5 +35,26 @@ Transaction: {
     customer: User(Object),
     completed: boolean,
     priceAgreed: float,
+    timeStamp: DateTime
+}
+```
+
+## Message
+```
+Message: {
+    sender: User(Object),
+    receiver: User(Object),
+    createdAt: DateTime,
+    content: String;
+}
+```
+
+## Reviews
+```
+Review: {
+    reviewer: User(Object),
+    reviewee: User(Object),
+    rating: 1-5,
+    content: String
 }
 ```
